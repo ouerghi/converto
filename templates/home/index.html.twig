@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- Preloader-end -->
+
+    <!-- Navbar -->
+   {% include 'home/inc/navbar.html.twig' %}
+    <!--[navbar-end]-->
+
+    <!--[jumotron]-->
+   {% include 'home/inc/welcome.html.twig' %}
+    <!--[jumotron end]-->
+
+    <!--[testimonial]-->
+   {% include 'home/inc/introduction.html.twig' %}
+    <!--[testimonial-end]-->
+
+    <!--[About Us]-->
+    {% include 'home/inc/about.html.twig' %}
+    <!--[About Us end]-->
+
+    <!--[What we do]-->
+   {% include 'home/inc/services.html.twig' %}
+    <!--[What we do - end]-->
+    <!--[What we do]-->
+    {% include 'home/inc/fonctionnality.html.twig' %}
+    <!--[What we do - end]-->
+    <!--[Animate Numbers]-->
+    {% include 'home/inc/countdown.html.twig' %}
+    <!--[Animate Numbers end]-->
+
+    <!--[Gallery]-->
+   {% include 'home/inc/gallery.html.twig' %}
+    <!--[Gallery-end]-->
+
+    <!--[Our Team]-->
+   {#{% include 'inc/team.html.twig' %}#}
+    <!--[Our Team end]-->
+
+    <!--[plans-pricing]-->
+
+    {% include 'home/inc/pricing.html.twig' %}
+
+    <!--[plans-pricing-end]-->
+
+
+
+    <!--[contact]-->
+    {% include 'home/inc/contact.html.twig' %}
+    <!--[contact-end]-->
+
+    {#<div id="map"></div>#}
+
+
+
+    <!--[footer]-->
+    {% include 'home/inc/footer.html.twig' %}
+    <!--[footer-end]-->
+{% endblock %}

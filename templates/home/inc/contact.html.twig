@@ -1,0 +1,50 @@
+<!--[contact]-->
+<div class="container-fluid contact-background">
+    <div id="contact">
+        <div class="col-md-12 contact-us" data-sr='wait 0.1s, then enter top and hustle 20px over 1s'>
+            <h2>Contactez-Nous</h2>
+            <div class="testimonial-border-white"></div>
+        </div>
+    </div>
+    <div class="row contact">
+        <div class="col-md-5 col-md-offset-2" data-sr='wait 0.2s, then enter left and hustle 50px over 1s'>
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" role="alert" style="background-color: #ffffff !important;">
+                <strong>Envoyé</strong> {{ flashMessage }}.
+            </div>
+            {% endfor %}
+            {{ form_start(form) }}
+            <div class="form-group">
+                <div class="input-group">
+                    {{ form_widget(form.name) }}
+                    <span class="input-group-addon"><i></i></span></div>
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    {{ form_widget(form.email) }}
+                    <span class="input-group-addon"><i></i></span></div>
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                   {{ form_widget(form.message) }}
+                    <span class="input-group-addon"><i></i></span></div>
+                {{ form_errors(form.message) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+        <hr class="featurette-divider hidden-lg">
+        <div class="col-md-3 col-md-push-1" data-sr='wait 0.2s, then ease in out and hustle 20px over 1s'>
+            <h2 class="h2-contact">CHATCONVERTO.COM</h2>
+            <address>
+                <p class="lead">
+                    Téléphone: 01 82 50 85 73<br/>
+                    contact@chatconverto.com<br/>
+                </p>
+            </address>
+        </div>
+    </div>
+</div>
+<!--[contact-end]-->

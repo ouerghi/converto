@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CRM!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+{% block body %}
+
+
+    <!-- ============================================================== -->
+
+    {% block content %}
+        {% block breadcump %}{% endblock %}
+        {% block container %}{% endblock %}
+    {% endblock %}
+    <!-- customizer Panel -->
+    <!-- ============================================================== -->
+    <div class="chat-windows"></div>
+    <!-- ============================================================== -->
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('jscrm/jquery.min.js') }}"></script>
+    <script type="module" src="{{ asset('jscrm/popper.min.js') }}"></script>
+    <script src="{{ asset('jscrm/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('jscrm/app.min.js') }}"></script>
+    <script src="{{ asset('jscrm/app.init.js') }}"></script>
+    <script src="{{ asset('jscrm/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('jscrm/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('jscrm/sparkline.js') }}"></script>
+    <script src="{{ asset('jscrm/waves.js') }}"></script>
+    <script src="{{ asset('jscrm/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('jscrm/custom.min.js') }}"></script>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/css.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/jsdelvr.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/scrolling-nav.css') }}">
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700' rel='stylesheet' type='text/css'>
+            <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:light' rel='stylesheet' type='text/css'>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-1.11.2.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.countdown.js') }}"></script>
+            <script src="{{ asset('js/html5shiv.min.js') }}"></script>
+            <script src="{{ asset('js/respond.min.js') }}"></script>
+            <script src="{{ asset('js/waypoints.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.counterup.js') }}"></script>
+            <!--</maps>-->
+            <script type="text/javascript"
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi4pzXIaemolBXDPx_xYjp-97HMC209GI">
+            </script>
+            <script src="{{ asset('js/javascript.js') }}"></script>
+            <script src="{{ asset('js/smoothscroll.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/anijs.js') }}"></script>
+            <script src="{{ asset('js/scrollreveal.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
+            <script src="{{ asset('js/scrolling-nav.js') }}"></script>
+            <script src="{{ asset('js/jquery.vide.min.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

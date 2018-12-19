@@ -1,0 +1,79 @@
+{% extends 'base_security.html.twig' %}
+
+{% block body %}
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(build/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box">
+                <div>
+                    <div class="logo">
+                        <span class="db"><img src="{{ asset('build/images/logo-icon.png') }}" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">Créer Un Compte Utilisateur </h5>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                           {{ form_start(form) }}
+                            <div class="form-group row ">
+                                <div class="col-12 ">
+                                    {{ form_widget(form.fullName) }}
+                                </div>
+                            </div>
+                                <div class="form-group row ">
+                                    <div class="col-12 ">
+                                       {{ form_widget(form.username) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12 ">
+                                      {{ form_widget(form.password) }}
+                                    </div>
+                                </div>
+                                <div class="form-group text-center ">
+                                    <div class="col-xs-12 p-b-20 ">
+                                        <input type="submit" class="btn btn-block btn-lg btn-info " value="Valider">
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-0 m-t-10 ">
+                                    <div class="col-sm-12 text-center ">
+                                        Vous avez déjà un compte ? <a href="authentication-login1.html " class="text-info m-l-5 "><b>S'identifier</b></a>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+    </div>
+{% endblock %}
+
