@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\Client1Type;
+use App\Form\ClientType;
 use App\Repository\ClientRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +16,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/client")
+ * @Security("is_fully_authenticated()")
+ * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit pour accéder à cet url")
  */
 class ClientController extends AbstractController
 {
@@ -81,7 +86,7 @@ class ClientController extends AbstractController
 	 */
     public function edit(Request $request, Client $client): Response
     {
-        $form = $this->createForm(Client1Type::class, $client);
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -1,116 +1,194 @@
 {% extends 'base_crm.html.twig' %}
 
-
-
-{% block body %}
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div class="lds-pos"></div>
-            <div class="lds-pos"></div>
-        </div>
-    </div>
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-       {% include 'admin/inc/header.html.twig' %}
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-       {% include 'admin/inc/left_sidebar.html.twig' %}
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        {% block content %}
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            {% block breadcump %}
-                <!-- ============================================================== -->
-                <!-- Bread crumb and right sidebar toggle -->
-                <!-- ============================================================== -->
-                <div class="page-breadcrumb">
-                    <div class="row">
-                        <div class="col-5 align-self-center">
-                            <h4 class="page-title">Page d'accueil</h4>
+        {% block breadcump %}
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <h4 class="page-title"> Bonjour {{ app.user.username }}</h4>
+                    </div>
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ path('admin') }}">Accueil</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Page d'accueil</li>
+                                </ol>
+                            </nav>
                         </div>
-                        <div class="col-7 align-self-center">
-                            <div class="d-flex align-items-center justify-content-end">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item">
-                                            <a href="#">Accueil</a>
-                                        </li>
-                                        <li class="breadcrumb-item active" aria-current="page">Page d'accueil</li>
-                                    </ol>
-                                </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+        {% endblock %}
+        {% block container %}
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- basic table -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                {% for message in app.flashes('success') %}
+                                                    <div class="alert alert-success">
+                                                        <button type="button" class="close" data-dismiss="alert"
+                                                                aria-label="Close"><span aria-hidden="true">×</span>
+                                                        </button>
+                                                        <h3 class="text-success"><i class="fa fa-check-circle"></i>
+                                                            Success</h3> {{ message }}.
+                                                    </div>
+                                                {% endfor %}
+
+                                                <h5 class="card-title">Chercher par date</h5>
+                                                {{ form_start(form) }}
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-lg-4">
+                                                        {{ form_row(form.start) }}
+                                                    </div>
+                                                    <div class="col-sm-12 col-lg-4">
+                                                        {{ form_row(form.end) }}
+                                                    </div>
+                                                </div>
+                                                {{ form_end(form) }}
+
+                                                {% if is_granted('ROLE_AGENT') %}
+                                                    <a class="btn waves-effect waves-light btn-primary float-right"
+                                                       href="{{ path('fiche.new') }}" role="button">Ajouter Fiche</a>
+                                                {% endif %}
+                                                <div class="table-responsive">
+                                                    <table id="zero_config" class="table table-striped table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>id</th>
+                                                            {% if  is_granted('ROLE_ADMIN') %}
+                                                            <th>Agent</th>
+                                                            {% endif %}
+                                                            {% if  is_granted('ROLE_AGENT') %}
+                                                            <th>Client</th>
+                                                            {% endif %}
+                                                            <th>Contact</th>
+                                                            <th>Tel</th>
+                                                            <th>Mail</th>
+                                                            <th>Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for fiche in fiches %}
+                                                            <tr
+                                                            {% if  is_granted('ROLE_CLIENT') and ( not is_granted('ROLE_ADMIN')) %}
+                                                             {{ fiche.seen ? "class='activeRow'" : '' }}
+                                                             onclick="seen({{ fiche.id }})"
+                                                           {% endif %}
+                                                            >
+                                                                <td>{{ fiche.id }}</td>
+                                                                {% if  is_granted('ROLE_ADMIN') %}
+                                                                <td>{{ fiche.client.agent.username }}</td>
+                                                                {% endif %}
+                                                                {% if  is_granted('ROLE_AGENT') %}
+                                                                <td>{{ fiche.client.username }}</td>
+                                                                {% endif %}
+                                                                <td>{{ fiche.contactPerson }}</td>
+                                                                <td>{{ fiche.tel }}</td>
+                                                                <td>{{ fiche.mail }}</td>
+                                                                <td class="time"> {{ fiche.dateCreated | date('Y-m-d') }}</td>
+
+                                                                <td class="clip text-center">
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        {% if is_granted('ROLE_ADMIN') %}
+                                                                            <a role="button" class="btn btn-primary "
+                                                                               href="{{ path('fiche.edit', {'id': fiche.id}) }}">Modifier</a>
+                                                                            {#<a class="text-danger"  href="{{ path('fiche.delete', {'id': fiche.id}) }}"><i class="fa fa-times"></i></a>#}
+                                                                        {% endif %}
+                                                                        <a role="button" class="btn btn-info " href="{{ path('fiche.show', {'id': fiche.id}) }}">Voir</a>
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>id</th>
+                                                            {% if  is_granted('ROLE_ADMIN') %}
+                                                            <td>agent</td>
+                                                            {% endif %}
+                                                            {% if is_granted('ROLE_AGENT') %}
+                                                            <th>Client</th>
+                                                            {% endif %}
+                                                            <th>Contact</th>
+                                                            <th>Tel</th>
+                                                            <th>Mail</th>
+                                                            <th>Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
                 <!-- ============================================================== -->
-            {% endblock %}
-
-               {% block container %}
-                   <!-- Container fluid  -->
-                   <!-- ============================================================== -->
-                   <div class="container-fluid">
-                       <!-- ============================================================== -->
-                       <!-- Start Page Content -->
-                       <!-- ============================================================== -->
-                       <div class="row">
-                           <div class="col-12">
-                               <div class="card">
-                                   <div class="card-body">
-                                       This is some text within a card block.
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <!-- ============================================================== -->
-                       <!-- End PAge Content -->
-                       <!-- ============================================================== -->
-                       <!-- ============================================================== -->
-                       <!-- Right sidebar -->
-                       <!-- ============================================================== -->
-                       <!-- .right-sidebar -->
-                       <!-- ============================================================== -->
-                       <!-- End Right sidebar -->
-                       <!-- ============================================================== -->
-                   </div>
-                   <!-- ============================================================== -->
-                   <!-- End Container fluid  -->
-               {% endblock %}
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
             <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            {% include 'admin/inc/footer.html.twig' %}
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-        </div>
+            <!-- End Container fluid  -->
         {% endblock %}
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
 
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('jscrm/datatables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="{{ asset('jscrm/datatable-basic.init.js') }}"></script>
+    <script>
 
+
+            function seen(id){
+                    console.table('hello');
+                    $.ajax({
+                      method: 'POST',
+                      url: "/fiche/seen/"+id,
+                      success: function (data) {
+                          console.log(data);
+                      }
+                    });
+                    $(this).addClass('activeRow');
+            }
+
+
+    </script>
 {% endblock %}

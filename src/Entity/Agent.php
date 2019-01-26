@@ -40,8 +40,9 @@ class Agent extends User
 
     public function addClient(Client $client): self
     {
-            $this->clients[] = $client;
-            $client->setAgent($this);
+
+		    $this->clients[] = $client;
+		    $client->setAgent( $this );
 
         return $this;
     }

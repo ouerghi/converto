@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Agent;
+use App\Form\AgentEditType;
 use App\Form\AgentType;
 use App\Repository\AgentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +18,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/agent")
+ * @Security("is_fully_authenticated()")
+ * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit pour accéder à cet url")
  */
 class AgentController extends AbstractController
 {
@@ -49,6 +54,7 @@ class AgentController extends AbstractController
 		    $password = $passwordEncoder->encodePassword($agent, $agent->getPassword());
 
 		    $clients = $form['clients']->getData();
+
 		    foreach ($clients as $client)
 		    {
 		    	$agent->addClient($client);
@@ -76,7 +82,7 @@ class AgentController extends AbstractController
 	 */
 	public function show(Agent $agent): Response
 	{
-		return $this->render('Agent/show.html.twig', ['client' => $agent]);
+		return $this->render('Agent/show.html.twig', ['agent' => $agent]);
 	}
 
 	/**
@@ -88,16 +94,10 @@ class AgentController extends AbstractController
 	 */
 	public function edit(Request $request, Agent $agent): Response
 	{
-		$form = $this->createForm(AgentType::class, $agent);
+		$form = $this->createForm(AgentEditType::class, $agent);
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
-
-			$clients = $form['clients']->getData();
-				foreach ($clients as $client)
-				{
-					$agent->addClient($client);
-				}
 
 			$this->getDoctrine()->getManager()->flush();
 

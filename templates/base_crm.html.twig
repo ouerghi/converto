@@ -5,24 +5,88 @@
     <title>{% block title %}CRM!{% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     {% endblock %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .activeRow {
+            color: white;
+            background-color: #233242 !important;
+        }
+        .select2-selection__rendered li{
+            background-color: #233242 !important;
+        }
+        .btn-group a {
+            color: white !important;
+        }
+    </style>
 </head>
 <body>
 {% block body %}
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        {% include 'admin/inc/header.html.twig' %}
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        {% include 'admin/inc/left_sidebar.html.twig' %}
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        {% block content %}
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                {% block breadcump %}
 
+                {% endblock %}
+
+                {% block container %}
+
+                {% endblock %}
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                {% include 'admin/inc/footer.html.twig' %}
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
+            </div>
+        {% endblock %}
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
 
     <!-- ============================================================== -->
+    <!-- ============================================================== -->
 
-    {% block content %}
-        {% block breadcump %}{% endblock %}
-        {% block container %}{% endblock %}
-    {% endblock %}
     <!-- customizer Panel -->
     <!-- ============================================================== -->
     <div class="chat-windows"></div>
@@ -40,6 +104,18 @@
     <script src="{{ asset('jscrm/waves.js') }}"></script>
     <script src="{{ asset('jscrm/sidebarmenu.js') }}"></script>
     <script src="{{ asset('jscrm/custom.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: 'resolve',
+                theme: 'classic'
+            });
+
+        });
+
+    </script>
+
 
 {% endblock %}
 </body>

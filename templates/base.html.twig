@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107284974-3"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-107284974-3');
+        </script>
+
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
@@ -13,6 +23,8 @@
             <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700' rel='stylesheet' type='text/css'>
             <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:light' rel='stylesheet' type='text/css'>
         {% endblock %}
+        <!-- Smartsupp Live Chat script -->
+        <script type="text/javascript"> var _smartsupp = _smartsupp || {}; _smartsupp.key = 'd13fd661ff6e85396af91daa59c0847632f09bb0'; window.smartsupp||(function(d) { var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[]; s=d.getElementsByTagName('script')[0];c=d.createElement('script'); c.type='text/javascript';c.charset='utf-8';c.async=true; c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s); })(document);</script>
     </head>
     <body>
         {% block body %}{% endblock %}

@@ -1,11 +1,81 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_crm.html.twig' %}
 
-{% block title %}New Client{% endblock %}
-
-{% block body %}
-    <h1>Create new Client</h1>
-
-    {{ include('client/_form.html.twig') }}
-
-    <a href="{{ path('client_index') }}">back to list</a>
-{% endblock %}
+         {% block breadcump %}
+             <!-- ============================================================== -->
+             <!-- Bread crumb and right sidebar toggle -->
+             <!-- ============================================================== -->
+             <div class="page-breadcrumb">
+                 <div class="row">
+                     <div class="col-5 align-self-center">
+                         <h4 class="page-title">Page d'ajout client</h4>
+                     </div>
+                     <div class="col-7 align-self-center">
+                         <div class="d-flex align-items-center justify-content-end">
+                             <nav aria-label="breadcrumb">
+                                 <ol class="breadcrumb">
+                                     <li class="breadcrumb-item">
+                                         <a href="{{ path('client_index') }}">Accueil</a>
+                                     </li>
+                                     <li class="breadcrumb-item active" aria-current="page">PAjout Client</li>
+                                 </ol>
+                             </nav>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- ============================================================== -->
+             <!-- End Bread crumb and right sidebar toggle -->
+             <!-- ============================================================== -->
+             <!-- ============================================================== -->
+         {% endblock %}
+        {% block container %}
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- row -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                {{ form_start(form, {'attr' : {'class':'m-t-30'}}) }}
+                                {% if not form.vars.valid %}
+                                    <div class="alert alert-danger" role="alert">
+                                        <ul>
+                                            {# Loop through every form item #}
+                                            {% for child in form.children %}
+                                                {# Display the errors of the form item #}
+                                                {%for error in child.vars.errors%}
+                                                    <li>{{error.message}}</li>
+                                                {%endfor%}
+                                            {%endfor%}
+                                        </ul>
+                                    </div>
+                                {%endif%}
+                                {{ form_row(form.fullName) }}
+                                {{ form_row(form.username) }}
+                                {{ form_row(form.password) }}
+                                {{ form_row(form.mail) }}
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+        {% endblock %}

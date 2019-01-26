@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Admin;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +42,7 @@ class SecurityController extends AbstractController
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 * @throws \Exception
+	 * @IsGranted("ROLE_ADMIN", message="Vous n'avez pas le droit pour accéder à cet url")
 	 */
 	public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em ): Response
 	{

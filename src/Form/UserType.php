@@ -16,9 +16,11 @@ class UserType extends AbstractType
     {
         $builder
 	        ->add('fullName', TextType::class, array(
+	        	'label' => 'Nom & Prénom',
 		        'attr' => array('class' => 'form-control form-control-lg', 'placeholder' => 'Nom & prénom')
 	        ))
             ->add('username', TextType::class, array(
+            	'label' => 'Login',
             	'attr' => array('class' => 'form-control form-control-lg', 'placeholder' => 'Login')
             ))
 	        ->add('password', PasswordType::class, array(

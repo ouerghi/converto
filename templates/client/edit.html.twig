@@ -1,13 +1,72 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_crm.html.twig' %}
 
-{% block title %}Edit Client{% endblock %}
+{% block title %}Edit Fiche{% endblock %}
 
-{% block body %}
-    <h1>Edit Client</h1>
 
-    {{ include('client/_form.html.twig', {'button_label': 'Update'}) }}
+    {% block breadcump %}
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Page Modification fiche</h4>
+                </div>
+                <div class="col-7 align-self-center">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ path('admin') }}">Accueil</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier Fiche</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+    {% endblock %}
+    {% block container %}
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <!-- row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ include('client/_form.html.twig') }}
+                            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                                <a class="btn waves-effect waves-light btn-outline-primary" role="button" href="{{ path('client_index') }}">retour à la liste</a>
+                                {{ include('client/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+    {% endblock %}
 
-    <a href="{{ path('client_index') }}">back to list</a>
 
-    {{ include('client/_delete_form.html.twig') }}
-{% endblock %}
+

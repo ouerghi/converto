@@ -9,9 +9,9 @@
     <div class="row contact">
         <div class="col-md-5 col-md-offset-2" data-sr='wait 0.2s, then enter left and hustle 50px over 1s'>
             {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="alert alert-success" role="alert" style="background-color: #ffffff !important;">
-                <strong>Envoyé</strong> {{ flashMessage }}.
-            </div>
+                <div class="alert alert-success" role="alert" style="background-color: #ffffff !important;">
+                    <strong>Envoyé</strong> {{ flashMessage }}.
+                </div>
             {% endfor %}
             {{ form_start(form) }}
             <div class="form-group">
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                   {{ form_widget(form.message) }}
+                    {{ form_widget(form.message) }}
                     <span class="input-group-addon"><i></i></span></div>
                 {{ form_errors(form.message) }}
             </div>
@@ -40,8 +40,9 @@
             <h2 class="h2-contact">CHATCONVERTO.COM</h2>
             <address>
                 <p class="lead">
-                    Téléphone: 01 82 50 85 73<br/>
-                    contact@chatconverto.com<br/>
+                    121 rue manin, 75019 PARIS <br> <br>
+                    Téléphone: 01 82 50 85 73<br/> <br>
+                    contact@chatconverto.com<br/> <br>
                 </p>
             </address>
         </div>

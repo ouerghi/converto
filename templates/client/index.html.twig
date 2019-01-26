@@ -1,34 +1,146 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_crm.html.twig' %}
 
-{% block title %}Client index{% endblock %}
+        {% block breadcump %}
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <h4 class="page-title">Page d'accueil</h4>
+                    </div>
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ path('admin') }}">Accueil</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Page d'accueil</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+        {% endblock %}
+        {% block container %}
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- basic table -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                {% for message in app.flashes('success') %}
+                                                    <div class="alert alert-success">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                                                        <h3 class="text-success"><i class="fa fa-check-circle"></i> Success</h3> {{ message }}.
+                                                    </div>
+                                                {% endfor %}
+                                                {% if is_granted('ROLE_AGENT') %}
+                                                    <a  class="btn waves-effect waves-light btn-primary float-right" href="{{ path('client_new') }}" role="button">Ajouter Client</a>
+                                                {% endif %}
+                                                <h4 class="card-title">Bonjour {{ app.user.username }}</h4>
+                                                <div class="table-responsive">
+                                                    <table id="zero_config" class="table table-striped table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>id</th>
+                                                            <th>Agent</th>
+                                                            <th>Login</th>
+                                                            <th>Nom</th>
+                                                            <th>Email</th>
+                                                            <th>Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for client in clients %}
+                                                            <tr>
+                                                                <td>{{ client.id }}</td>
+                                                                <td>
+                                                                    {% if client.agent is not null %}
+                                                                    {{ client.agent.username }}
+                                                                        {% else %}
+                                                                        vide
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>{{ client.username }}</td>
+                                                                <td>{{ client.fullName }}</td>
+                                                                <td>{{ client.mail }}</td>
+                                                                <td class="time"> {{ client.created | date('Y-m-d') }}</td>
 
-{% block body %}
-    <h1>Client index</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Mail</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for client in clients %}
-            <tr>
-                <td>{{ client.id }}</td>
-                <td>{{ client.mail }}</td>
-                <td>
-                    <a href="{{ path('client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('client_edit', {'id': client.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                                                <td class="clip text-center">
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        {% if is_granted('ROLE_ADMIN') %}
+                                                                            <a role="button" class="btn btn-primary "
+                                                                               href="{{ path('client_edit', {'id': client.id}) }}">Modifier</a>
+                                                                            {#<a class="text-danger"  href="{{ path('fiche.delete', {'id': fiche.id}) }}"><i class="fa fa-times"></i></a>#}
+                                                                        {% endif %}
+                                                                        <a role="button" class="btn btn-info " href="{{ path('client_show', {'id': client.id}) }}">Voir</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                        <tfoot>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Agent</th>
+                                                            <th>Login</th>
+                                                            <th>Nom</th>
+                                                            <th>Email</th>
+                                                            <th>Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+        {% endblock %}
 
-    <a href="{{ path('client_new') }}">Create new</a>
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('jscrm/datatables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="{{ asset('jscrm/datatable-basic.init.js') }}"></script>
 {% endblock %}

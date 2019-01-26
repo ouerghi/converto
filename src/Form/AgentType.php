@@ -6,6 +6,7 @@ use App\Entity\Agent;
 use App\Entity\Client;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,6 +18,8 @@ class AgentType extends AbstractType
            ->add('clients', EntityType::class, array(
            	'class' => Client::class,
             'choice_label' => 'fullName',
+            'attr' => array('class' => 'select2'),
+            'placeholder' => 'Ajouter des clients',
             'multiple' => true
            ))
         ;

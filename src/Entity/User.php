@@ -96,15 +96,13 @@ Abstract class User implements UserInterface
     }
 
 	/**
-	 * @param \DateTime $created
-	 *
-	 * @return User
+	 * @return \DateTime
 	 */
-	public function setCreated( \DateTime $created ): User
+	public function getCreated( ): \DateTime
 	{
-		$this->created = $created;
+		return $this->created ;
                      
-		return $this;
+
 	}
 
 

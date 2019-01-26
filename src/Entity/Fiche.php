@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FicheRepository")
@@ -18,16 +20,20 @@ class Fiche
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="4")
+     *
      */
     private $contactPerson;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank()
      */
     private $type;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel;
 
@@ -47,7 +53,8 @@ class Fiche
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     private $mail;
 
@@ -63,17 +70,47 @@ class Fiche
     private $agent;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $client;
 
+	/**
+	 * @var \DateTime $dateCreated
+	 * @ORM\Column(type="datetime")
+	 */
+    private $dateCreated;
+
+	/**
+	 * @var boolean $IsSeen
+	 * @ORM\Column(type="boolean", options={"default": false})
+	 */
+    private $IsSeen = false;
+
+	/**
+	 * Fiche constructor.
+	 * @throws \Exception
+	 */
+	public function __construct()
+    {
+    	$this->dateCreated = new \DateTime();
+    }
 
 
-    public function getId(): ?int
+	public function getId(): ?int
     {
         return $this->id;
     }
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getDateCreated(): \DateTime {
+		return $this->dateCreated ;
+
+	}
+
 
     public function getContactPerson(): ?string
     {
@@ -194,5 +231,20 @@ class Fiche
 
         return $this;
     }
+
+	/**
+	 * @return bool
+	 */
+	public function isSeen(): bool {
+		return $this->IsSeen;
+	}
+
+	/**
+	 * @param bool $IsSeen
+	 */
+	public function setIsSeen( bool $IsSeen ): void {
+		$this->IsSeen = $IsSeen;
+	}
+
 
 }

@@ -30,8 +30,7 @@ class SendMail
 	 * @throws \Twig_Error_Runtime
 	 * @throws \Twig_Error_Syntax
 	 */
-	public function sendMail($contact)
-	{
+	public function sendMail($contact): void {
 		$message = (new \Swift_Message('Contact Email'))
 			->setFrom('contact@chatconverto.com')
 			->setTo('contact@chatconverto.com')
@@ -44,6 +43,30 @@ class SendMail
 				'text/html'
 			)
 			;
+
+		$this->mailer->send($message);
+	}
+
+	/**
+	 * @param $client
+	 *
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
+	 */
+	public function sendMailClient($client): void {
+		$message = (new \Swift_Message('Client Email'))
+			->setFrom('contact@chatconverto.com')
+			->setTo('contact@chatconverto.com')
+			->setBody(
+				$this->templating->render(
+				// templates/emails/registration.html.twig
+					'admin/email/client.html.twig',
+					array('contact' => $client)
+				),
+				'text/html'
+			)
+		;
 
 		$this->mailer->send($message);
 	}

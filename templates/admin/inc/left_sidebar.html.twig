@@ -6,12 +6,24 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false"><i class="ti-loop"></i><span class="hide-menu">Retour à la page d'accueil</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Listes des fiches</span></a>
+                {#<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('homepage') }}" aria-expanded="false"><i class="ti-loop"></i><span class="hide-menu">Retour à la page d'accueil</span></a></li>#}
+                {% if is_granted('ROLE_ADMIN') %}
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-notification-clear-all"></i><span class="hide-menu">Paramétrages</span></a>
                     <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><i class="mdi mdi-octagram"></i><span class="hide-menu"> Paramétres</span></a></li>
+                        <li class="sidebar-item">
+                            <a href="{{ path('register') }}" class="sidebar-link"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu"> Ajouter admin</span></a>
+                            <a href="{{ path('agent.index') }}" class="sidebar-link"><i class="mdi mdi-account-settings-variant"></i><span class="hide-menu"> Agents</span></a>
+                            <a href="{{ path('client_index') }}" class="sidebar-link"><i class="mdi mdi-account-star"></i><span class="hide-menu"> Clients</span></a>
+                            {#<a href="{{ path('fiche.index') }}" class="sidebar-link"><i class="mdi mdi-file-document-box"></i><span class="hide-menu"> Fiches</span></a>#}
+
+                        </li>
                     </ul>
                 </li>
+                {% endif %}
+
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin') }}" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Accueil</span></a></li>
+
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('logout') }}" aria-expanded="false"><i class="ti-lock"></i><span class="hide-menu">Déconnexion</span></a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
